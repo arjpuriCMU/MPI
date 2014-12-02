@@ -45,6 +45,22 @@ public class Point {
 		}
 		return new Point(sum_x/points.size(), sum_y/points.size());
 	}
+
 	
+	public int closetPointIndex(Point[] centroids) {
+		Double temp_distance;
+		Double min_distance = Double.MAX_VALUE;
+		int min_index = 0;
+		Point p;
+		for (int i = 0; i < centroids.length; i++){
+			p = centroids[i];
+			temp_distance = this.distance(p); 
+			if (temp_distance < min_distance){
+				min_distance = temp_distance;
+				min_index = i;
+			}
+		}
+		return min_index;
+	}
 	
 }
