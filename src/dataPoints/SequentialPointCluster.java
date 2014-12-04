@@ -51,7 +51,6 @@ public class SequentialPointCluster {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		/*Pick any k random centroids from the given data */
 		Point[] centroids = randomCentroids(points,k);
 
