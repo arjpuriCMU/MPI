@@ -50,6 +50,7 @@ public class SequentialDNACluster {
 		Strand[] results = sequentialKMeans(strands, centroids, k);
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
+        System.out.print("Elapsed Time: " + elapsedTime);
 	}
 	
 	public static Strand[] sequentialKMeans(List<Strand> points, Strand[] centroids,int k){
@@ -58,7 +59,9 @@ public class SequentialDNACluster {
 		for (int i = 0; i < k; i++){
 			clusters.add(new ArrayList<Strand>());
 		}
-		while(true){
+
+        int iterations = 0;
+		while (true){
 			/*For all points, find the centroid closest to it, and add that point to that cluster. */
 			for (Strand p : points){
 				int index = p.closetPointIndex(centroids);
@@ -70,13 +73,16 @@ public class SequentialDNACluster {
 			/*Re calculate all the centroids by determining the mean of all the clusters */
 			for (List<Strand> list : clusters){
 				new_centroids[count] = Strand.getCentroid(list);
+                count++;
 			}
 			
 			/*If there are no changes to the centroids we are done */
 			if (Arrays.equals(centroids, new_centroids)){
+                System.out.println("Total Iterations: " + iterations + 1);
 				return new_centroids;
 			}
 			centroids = Arrays.copyOf(new_centroids, new_centroids.length);
+            iterations++;
 		}
 	}
 
@@ -84,7 +90,7 @@ public class SequentialDNACluster {
 	public static Strand[] randomCentroids(List<Strand> points, int n){
 		List<Strand> linked_list_points = new LinkedList<Strand>(points);
 		Collections.shuffle(linked_list_points);
-		return (Strand[]) linked_list_points.subList(0, n).toArray();
+		return linked_list_points.subList(0, n).toArray(new Strand[0]);
 	}
 	
 	

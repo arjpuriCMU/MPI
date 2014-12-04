@@ -80,7 +80,7 @@ numPoints, \
 output, \
 length = handleArgs(sys.argv)
 
-writer = csv.writer(open(output, "w"))
+f = open(output,"w")
 
 # step 1: generate each DNA centroid
 centroids_radii = []
@@ -100,7 +100,7 @@ for i in range(0, numClusters):
     cluster = centroids_radii[i]
     for j in range(0, numPoints):
         # generate random number of bases to be changed
-        numChanged = numpy.random.randInt(maxBasesChanged)
+        numChanged = numpy.random.randint(maxBasesChanged)
         # generate randomly which bases to change
         changedIndexes = numpy.random.choice(length,numChanged)
 
@@ -117,4 +117,4 @@ for i in range(0, numClusters):
                 strand[x] = numpy.random.choice(['A','G','C'])
                 
         # write the strand out
-        writer.writerow("".join(strand))
+        f.write(''.join(strand) + '\n')

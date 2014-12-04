@@ -1,5 +1,6 @@
 package dataPoints;
 
+import javax.sound.midi.SysexMessage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,11 +54,13 @@ public class SequentialPointCluster {
 		
 		/*Pick any k random centroids from the given data */
 		Point[] centroids = randomCentroids(points,k);
+
 		/*Time the execution */
 		long startTime = System.currentTimeMillis();
 		Point[] results = sequentialKMeans(points, centroids, k);
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
+        System.out.print("Elapsed Time: " + elapsedTime);
 	}
 	
 	public static Point[] sequentialKMeans(List<Point> points, Point[] centroids,int k){
@@ -66,10 +69,11 @@ public class SequentialPointCluster {
 		for (int i = 0; i < k; i++){
 			clusters.add(new ArrayList<Point>());
 		}
+        int iterations = 0;
 		while(true){
 			/*For all points, find the centroid closest to it, and add that point to that cluster. */
 			for (Point p : points){
-				int index = p.closetPointIndex(centroids);
+                int index = p.closetPointIndex(centroids);
 				clusters.get(index).add(p);
 			}
 			Point[] new_centroids = new Point[k];
@@ -78,13 +82,16 @@ public class SequentialPointCluster {
 			/*Re calculate all the centroids by determining the mean of all the clusters */
 			for (List<Point> list : clusters){
 				new_centroids[count] = Point.mean(list);
+                count++;
 			}
 			
 			/*If there are no changes to the centroids we are done */
 			if (Arrays.equals(centroids, new_centroids)){
+                System.out.println("Total Iterations: " + iterations + 1);
 				return new_centroids;
 			}
 			centroids = Arrays.copyOf(new_centroids, new_centroids.length);
+            iterations++;
 		}
 	}
 
@@ -92,7 +99,8 @@ public class SequentialPointCluster {
 	public static Point[] randomCentroids(List<Point> points, int n){
 		List<Point> linked_list_points = new LinkedList<Point>(points);
 		Collections.shuffle(linked_list_points);
-		return (Point[]) linked_list_points.subList(0, n).toArray();
+		return linked_list_points.subList(0, n).toArray(new Point[0]);
+
 	}
 	
 	

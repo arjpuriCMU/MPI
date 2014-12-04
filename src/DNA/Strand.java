@@ -18,10 +18,7 @@ public class Strand {
 			return false;
 		}
 		Strand new_strand = (Strand) o;
-		if (this.strand_string.equals(new_strand.strand_string)){
-			return false;
-		}
-		return true;
+		return (this.strand_string.equals(new_strand.strand_string));
 	}
 	
 
@@ -35,13 +32,14 @@ public class Strand {
         int count = 0;
         for(int i = 0; i < strand_string.length(); i++)
         {
-            if(strand_string.charAt(i) == s.strand_string.charAt(i))
+            if (strand_string.charAt(i) == s.strand_string.charAt(i))
                 count++;
         }
 
 		return count;
 	}
-	
+
+    /* Returns strand with most common base at each index */
 	public static Strand getCentroid(List<Strand> strands)
     {
         int strand_length = strands.get(0).strand_string.length();
@@ -63,8 +61,6 @@ public class Strand {
                         break;
                     case 'T':
                         bases[i][3] =+ 1;
-                        break;
-                    default:
                         break;
                 }
             }
@@ -103,7 +99,7 @@ public class Strand {
                     break;
             }
         }
-		return new Strand(centroidChars.toString());
+		return new Strand(new String(centroidChars));
 	}
 
 	

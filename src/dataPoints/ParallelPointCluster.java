@@ -22,7 +22,7 @@ public class ParallelPointCluster {
 		int rank = MPI.COMM_WORLD.Rank();
 		/* If rank is 0 then we are running our first system so it should be a server */
 		if (rank == 0){
-			runServer(args);
+		runServer(args);
 		}
 		
 	}
@@ -76,7 +76,7 @@ public class ParallelPointCluster {
 	private Point[] parallelKMeans(List<Point> points, Point[] centroids,
 			Integer k) {
 
-	
+	return null;
 	}
 
 	/*From a list of points get a list of n random points */

@@ -1,6 +1,7 @@
 package dataPoints;
 
 import java.util.List;
+import java.lang.*;
 
 public class Point {
 	public Double x;
@@ -17,10 +18,7 @@ public class Point {
 			return false;
 		}
 		Point new_point = (Point) o;
-		if (this.x.equals(new_point.x) || this.y.equals(new_point.y)){
-			return false;
-		}
-		return true;
+        return (this.distance(new_point) < 0.000001);
 	}
 	
 	@Override
@@ -31,8 +29,8 @@ public class Point {
 	}
 	
 	public Double distance(Point p){
-		Double val1 = Math.pow(x - p.x,2);
-		Double val2 = Math.pow(y-p.y, 2);
+		Double val1 = Math.pow(x - p.x, 2.0);
+		Double val2 = Math.pow(y - p.y, 2.0);
 		return Math.sqrt(val1+val2);
 	}
 	
