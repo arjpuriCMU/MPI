@@ -59,7 +59,7 @@ public class SequentialPointCluster {
 		Point[] results = sequentialKMeans(points, centroids, k);
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
-        System.out.print("Elapsed Time: " + elapsedTime);
+        System.out.println("Elapsed Time: " + elapsedTime);
 	}
 	
 	public static Point[] sequentialKMeans(List<Point> points, Point[] centroids,int k){
@@ -83,14 +83,16 @@ public class SequentialPointCluster {
 				new_centroids[count] = Point.mean(list);
                 count++;
 			}
-			
+
+            iterations++;
+
 			/*If there are no changes to the centroids we are done */
 			if (Arrays.equals(centroids, new_centroids)){
-                System.out.println("Total Iterations: " + iterations + 1);
+                System.out.println("Total Iterations: " + iterations);
 				return new_centroids;
 			}
 			centroids = Arrays.copyOf(new_centroids, new_centroids.length);
-            iterations++;
+
 		}
 	}
 

@@ -1,9 +1,10 @@
 package dataPoints;
 
+import java.io.Serializable;
 import java.util.List;
 import java.lang.*;
 
-public class Point {
+public class Point implements Serializable{
 	public Double x;
 	public Double y;
 	
@@ -18,7 +19,7 @@ public class Point {
 			return false;
 		}
 		Point new_point = (Point) o;
-        return (this.distance(new_point) < 0.000001);
+        return (this.distance(new_point) < 0.05);
 	}
 	
 	@Override
@@ -35,6 +36,8 @@ public class Point {
 	}
 	
 	public static Point mean(List<Point> points){
+        if(points.size() == 0)
+            return new Point(0.0,0.0);
 		Double sum_x = 0.0;
 		Double sum_y = 0.0;
 		for (Point p : points){
