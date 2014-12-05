@@ -10,7 +10,7 @@ public class SequentialDNACluster {
 
 	public static void main(String[] args){
 		if (args.length != 2){
-			System.out.println("There must be 2 arguments in this order: k, file. Where k is the number of clusters, and file is the .csv of dna strands");
+			System.out.println("There must be 2 arguments in this order: k, file. Where k is the number of clusters, and file is the .txt of dna strands");
 			return;
 		}
 		Integer k = null;
@@ -50,7 +50,7 @@ public class SequentialDNACluster {
 		Strand[] results = sequentialKMeans(strands, centroids, k);
 		long stopTime = System.currentTimeMillis();
 	    long elapsedTime = stopTime - startTime;
-        System.out.print("Elapsed Time: " + elapsedTime);
+        System.out.println("Elapsed Time: " + elapsedTime);
 	}
 	
 	public static Strand[] sequentialKMeans(List<Strand> points, Strand[] centroids,int k){
@@ -78,7 +78,7 @@ public class SequentialDNACluster {
 			
 			/*If there are no changes to the centroids we are done */
 			if (Arrays.equals(centroids, new_centroids)){
-                System.out.println("Total Iterations: " + iterations + 1);
+                System.out.println("Total Iterations: " + iterations);
 				return new_centroids;
 			}
 			centroids = Arrays.copyOf(new_centroids, new_centroids.length);

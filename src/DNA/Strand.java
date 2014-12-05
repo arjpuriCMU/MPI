@@ -1,11 +1,12 @@
 package DNA;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class Strand {
+public class Strand implements Serializable{
 	public String strand_string;
 
 	public Strand(String strand){
@@ -40,8 +41,10 @@ public class Strand {
 	}
 
     /* Returns strand with most common base at each index */
-	public static Strand getCentroid(List<Strand> strands)
+	public static Strand getCentroid (List<Strand> strands)
     {
+        if(strands.size() == 0)
+            return null;
         int strand_length = strands.get(0).strand_string.length();
         int[][] bases = new int[strand_length][4];
         //Stores counts for each index: A:0 G:1 C:2 T:3
